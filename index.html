@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dhichkyaaon Viral Lyrics</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .sun {
+      font-size: 70px;
+      animation: spin 12s linear infinite reverse; /* anti-clockwise */
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-360deg); }
+    }
+
+    #lyrics {
+      margin-top: 40px;
+      font-size: 32px;
+      color: #fff;
+      font-weight: bold;
+      text-align: center;
+      min-height: 120px;
+    }
+
+    .fadeIn {
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    audio {
+      display: none; /* hide controls for autoplay */
+    }
+
+    /* Floating emoji effect */
+    .float {
+      position: absolute;
+      font-size: 24px;
+      opacity: 0.7;
+      animation: floatUp 6s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(1); opacity: 0.6; }
+      100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sun">☀️</div>
+
+  <audio id="audio" autoplay muted>
+    <source src="song_trimmed.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <div id="lyrics">🎵 Loading...</div>
+
+  <!-- Floating emojis for viral reel vibe -->
+  <div class="float" style="left:10%;">✨</div>
+  <div class="float" style="left:30%; animation-delay:2s;">💖</div>
+  <div class="float" style="left:60%; animation-delay:4s;">🌸</div>
+  <div class="float" style="left:80%; animation-delay:1s;">🔥</div>
+
+  <script>
+    const audio = document.getElementById("audio");
+    const lyricsDiv = document.getElementById("lyrics");
+
+    // Lyrics with timings
+    const lyrics = [
+      { time: 0, text: "🎵 Kya karoon achchi tu lagti hai 🎵" },
+      { time: 5, text: "Baat yeh jhoothi kyun lagti hai" },
+      { time: 10, text: "Arre jab tu fadakti hai" },
+      { time: 15, text: "Dil pe chalein goliyaan.. aa.. aa.. aa.. haaye" },
+      { time: 22, text: "🔥 Aye dhichkyaaon doom, doom 🔥" },
+      { time: 27, text: "doom, doom, doom, doom" },
+      { time: 32, text: "Viral beat drops... 💥" }
+    ];
+
+    function updateLyrics() {
+      let currentTime = audio.currentTime;
+      let currentLine = "";
+
+      for (let i = 0; i < lyrics.length; i++) {
+        if (currentTime >= lyrics[i].time) {
+          currentLine = lyrics[i].text;
+        }
+      }
+
+      if (lyricsDiv.innerText !== currentLine) {
+        lyricsDiv.innerText = currentLine;
+        lyricsDiv.classList.remove("fadeIn");
+        void lyricsDiv.offsetWidth; // reset animation
+        lyricsDiv.classList.add("fadeIn");
+      }
+    }
+
+    audio.addEventListener("timeupdate", updateLyrics);
+
+    // Trick: Unmute & play on first user interaction
+    window.addEventListener("click", () => {
+      if (audio.muted) {
+        audio.muted = false;
+        audio.play();
+      }
+    });
+  </script>
+</body>
+</html>
